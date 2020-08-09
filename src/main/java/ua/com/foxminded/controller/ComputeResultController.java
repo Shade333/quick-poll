@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import ua.com.foxminded.domain.Vote;
 import ua.com.foxminded.dto.OptionCount;
 import ua.com.foxminded.dto.VoteResult;
@@ -23,7 +24,8 @@ public class ComputeResultController {
     @Inject
     private VoteRepository voteRepository;
 
-    @RequestMapping(value="/computeresults", method=RequestMethod.GET)
+    @RequestMapping(value = "/computeresults", method = RequestMethod.GET)
+    @ApiOperation(value = "Compute the results of a given poll", response = VoteResult.class)
     public ResponseEntity<?> computeResults(@RequestParam long pollId) {
         VoteResult voteResult = new VoteResult();
         Iterable<Vote> allVotes = voteRepository.findByPoll(pollId);
