@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 import ua.com.foxminded.domain.Vote;
 import ua.com.foxminded.repository.VoteRepository;
 
@@ -24,6 +27,9 @@ public class VoteController {
     private VoteRepository voteRepository;
 
     @RequestMapping(value="/polls/{pollId}/votes", method=RequestMethod.POST)
+    @ApiOperation(value = "Casts a new vote for a given poll", notes="The newly created vote Id will be sent in the location response header", 
+    response = Void.class)
+    @ApiResponses(value = {@ApiResponse(code=201, message="Vote Created Successfully", response=Void.class) })
     public ResponseEntity<?> createVote(@PathVariable long pollId, @RequestBody Vote vote) {
         vote = voteRepository.save(vote);
         HttpHeaders responseHeaders = new HttpHeaders();
