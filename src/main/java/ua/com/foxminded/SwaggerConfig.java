@@ -32,4 +32,14 @@ public class SwaggerConfig{
                 .paths(PathSelectors.regex("/v2.*"))
                 .build();
     }
+
+    @Bean
+    public Docket v3api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("v3")
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.regex("/v3.*"))
+                .build();
+    }
 }
