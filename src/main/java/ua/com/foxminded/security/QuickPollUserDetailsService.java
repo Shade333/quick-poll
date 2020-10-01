@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import ua.com.foxminded.domain.Role;
 import ua.com.foxminded.domain.User;
 import ua.com.foxminded.repository.UserRepository;
 
@@ -29,11 +28,13 @@ public class QuickPollUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("User with the username %s doesn't exist", username));
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if (user.getRole() == Role.ADMIN) {
-            authorities = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_STAFF", "ROLE_VISITOR");
-        } else {
-            AuthorityUtils.createAuthorityList("ROLE_" + user.getRole());
-        }
+          if (user.getRole().trim().equals("ADMIN")) {
+              authorities = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_STAFF", "ROLE_VISITOR");
+          } else if (user.getRole().trim().equals("STAFF")) {
+              authorities = AuthorityUtils.createAuthorityList("ROLE_STAFF");
+          } else if (user.getRole().trim().equals("VISITOR")) {
+              authorities = AuthorityUtils.createAuthorityList("ROLE_VISITOR");
+          }
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
         return userDetails;
     }

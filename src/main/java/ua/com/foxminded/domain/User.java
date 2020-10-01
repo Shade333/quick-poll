@@ -37,7 +37,7 @@ public class User {
 
     @Column(name="ROLE", columnDefinition="char(7)")
     @NotEmpty
-    private Role role;
+    private String role;
 
     public Long getId() {
         return id;
@@ -79,11 +79,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }
