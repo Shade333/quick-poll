@@ -13,6 +13,8 @@ Subtasks:
 
   4. [Task F.c8  Quick Poll - security](docs/Fc8.md)
 
+  5. [Task F.c9  Quick Poll - RestTemplate, testing controllers](docs/Fc9.md)
+
 *****
 *****
   
